@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useContext, useReducer } from 'react';
+import React, { useState, useEffect, useContext, useReducer, useCallback, useMemo } from 'react';
 
 import { Menu } from './Menu';
 import { Header } from './Header';
@@ -16,7 +16,6 @@ const Speakers = ({}) =>{
         function updateFavorite(favouriteValue) {
             return state.map((item, index) =>{
                 if (item.id === action.sessionId) {
-                    console.log("ITEM TO TOGGLE FAV:::",item)
                     return {...item, favorite: favouriteValue}
                 }
                 return item;
@@ -66,7 +65,7 @@ const Speakers = ({}) =>{
         setSpeakingSunday(!speakingSunday);
     }
 
-    const heartFavoriteHandler = (e, favouriteValue)=>{
+    const heartFavoriteHandler = useCallback((e, favouriteValue)=>{
         e.preventDefault();
         const sessionId = parseInt(e.target.attributes['data-sessionId'].value);
         // setSpeakerList(
@@ -82,23 +81,24 @@ const Speakers = ({}) =>{
             type: favouriteValue === true ? "favorite" : "unfavorite",
             sessionId,
         })
-    }
+    }, []);
 
-    console.log(speakerList);
-    const speakerListFiltered = isLoading ? [] : speakerList.filter(
-        ({sat, sun}) => (speakingSaturday && sat) || (speakingSunday && sun),
-    ).sort(function(a,b) {
-        if (a.firstName < b.firstName) {
-            return -1;
-        }
-        if (a.firstName > b.firstName) {
-            return 1;
-        }
-        return 0;
-    })
+    const newSpeakerList = useMemo( () =>
+        speakerList.filter(
+            ({sat, sun}) => (speakingSaturday && sat) || (speakingSunday && sun),
+        ).sort(function(a,b) {
+            if (a.firstName < b.firstName) {
+                return -1;
+            }
+            if (a.firstName > b.firstName) {
+                return 1;
+            }
+            return 0;
+        }), [speakingSaturday, speakingSunday, speakerList]);
 
-    console.log("LOADING", isLoading);
-    console.log("FILTERED LIST", speakerList);
+    const speakerListFiltered = isLoading ? [] : newSpeakerList;
+
+    setTimeout(()=>{console.log(newSpeakerList)}, 1000)
 
     if (isLoading) return <div>Loading</div>
 
@@ -132,7 +132,6 @@ const Speakers = ({}) =>{
                 : null}
                 <div className='row'>
                     <div className='card-deck'>
-                        {console.log("SPEAKER LIST::::", speakerList)}
                         {speakerListFiltered.map(
                             (speakerInfo) => {
                                 return (
