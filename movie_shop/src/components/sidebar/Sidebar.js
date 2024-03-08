@@ -27,7 +27,7 @@ function Sidebar() {
     alert("clicked!")
   };
   return (
-    <div className='border-r-2 shadow-xl w-64  dark:bg-[#2d304b] h-[100vh] pt-16 fixed'>
+    <div className='border-r-2 dark:border-r-0 shadow-xl w-64  dark:bg-[#2d304b] h-[100vh] pt-16 fixed'>
       <div className='flex justify-end px-4 cursor-pointer'>
           <MdKeyboardDoubleArrowLeft className='dark:text-white text-black' size={28} onClick={handleSideBarShow} />
       </div>

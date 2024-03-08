@@ -8,7 +8,7 @@ import { FaAffiliatetheme } from "react-icons/fa";
 
 function Navbar() {
   return (
-    <div className='shadow-md border-b-2 border-purple-100 mt-[-1px] h-16 bg-white dark:text-white dark:bg-[#333551] rounded-[2px] flex items-center justify-between px-10  fixed z-[1] w-[100vw]'>
+    <div className='shadow-md border-b-2 dark:border-b-0 border-purple-100 mt-[-1px] h-16 bg-white dark:text-white dark:bg-[#333551] rounded-[2px] flex items-center justify-between px-10  fixed z-[1] w-[100vw]'>
       <div>
       <img src='/static/images/logo.png'  className='w-28 h-16'/>
       </div>
