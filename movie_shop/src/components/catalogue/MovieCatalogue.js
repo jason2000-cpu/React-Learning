@@ -1,12 +1,16 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { MovieData } from '../../../public/static/images/MovieData';
+import { AppContext } from '../app';
+import Loading from '../Loading/Loading';
 
 
-function MovieCatalogue({ searchQuery }) {
+function MovieCatalogue() {
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    const context = useContext(AppContext);
 
     useEffect(()=>{
         setIsLoading(true);
@@ -16,10 +20,12 @@ function MovieCatalogue({ searchQuery }) {
             }, 1000)
         }).then(()=>{
             setMovies(MovieData.results)
+            setIsLoading(false);
         })
-    }, [])
+        console.log("FROM USEEFFECT::::",context.searchQuery);
+    }, [context.searchQuery])
 
-  return (
+  return isLoading ? <Loading /> : (
     <div>
         <div className='grid grid-cols-4'>
             {movies.map((movie)=>{
