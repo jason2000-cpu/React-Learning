@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 
 import CategoryList from './CategoryList'
 
@@ -18,12 +20,18 @@ const movieCategories = [
 ]
 
 function Sidebar() {
+  const [show, setShow] = useState(true);
+
+  const handleSideBarShow = () => {
+    setShow(!show);
+    alert("clicked!")
+  };
   return (
-    <div className='w-64  bg-[#2d304b] h-[92vh]'>
+    <div className='border-r-2 shadow-xl w-64  dark:bg-[#2d304b] h-[100vh] pt-16 fixed'>
       <div className='flex justify-end px-4 cursor-pointer'>
-          <MdKeyboardDoubleArrowLeft color='white' size={40} />
+          <MdKeyboardDoubleArrowLeft className='dark:text-white text-black' size={28} onClick={handleSideBarShow} />
       </div>
-      <ul>
+      <ul className='text-black'>
         {movieCategories.map((category) =>{
             return (
               <CategoryList category={category}/>

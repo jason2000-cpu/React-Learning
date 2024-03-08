@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark transition-colors delay-1000 duration-300 ease-in-out">
       <body className={inter.className}>{children}</body>
     </html>
   );
