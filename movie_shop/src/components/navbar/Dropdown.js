@@ -70,25 +70,12 @@ export default function Dropdown() {
             <Menu.Item>
                 {({ active }) => (
                     <div className={classNames(
-                        active ? 'bg-gray-100 text-gray-900': 'text-gray-700',
-                        'px-2 py-4 text-sm flex cursor-pointer'
-                    )}>
-                        <FaMoon size={20} />
-                        <div className='px-1' onClick={toggleTheme}>
-                            Dark Theme
-                        </div>
-                    </div>
-                )}
-            </Menu.Item>
-            <Menu.Item>
-                {({ active }) => (
-                    <div className={classNames(
                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                         'px-2 py-4 text-sm flex cursor-pointer'
                     )}>
                         <MdLightMode size={20}/>
                         <div className='px-1' onClick={toggleTheme}>
-                            Light Theme
+                            Toggle Theme
                         </div>
                     </div>
                 )}
