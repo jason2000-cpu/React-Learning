@@ -8,7 +8,7 @@ import Catalogue from './catalogue/Catalogue'
 export const AppContext = createContext();
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('New Movies');
 
   const contextValue = {
     searchQuery,

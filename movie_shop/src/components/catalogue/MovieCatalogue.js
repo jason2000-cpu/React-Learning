@@ -4,25 +4,38 @@ import React, { useEffect, useState, useContext } from 'react'
 import { MovieData } from '../../../public/static/images/MovieData';
 import { AppContext } from '../app';
 import Loading from '../Loading/Loading';
+import axios from 'axios';
 
+const apiKey = 'b5697d5817492dfccc3ebfa0514a306f';
+const baseUrl = 'https://api.themoviedb.org/3';
 
 function MovieCatalogue() {
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const context = useContext(AppContext);
+    const searchQuery = context.searchQuery;
 
     useEffect(()=>{
         setIsLoading(true);
-        new Promise((resolve)=>{
-            setTimeout(()=>{
-                resolve();
-            }, 1000)
-        }).then(()=>{
-            setMovies(MovieData.results)
-            setIsLoading(false);
-        })
-        console.log("FROM USEEFFECT::::",context.searchQuery);
+        async function searchMovies(searchQuery){
+            try {
+                const response = await axios.get(`${baseUrl}/search/movie`, {
+                    params: {
+                        api_key: apiKey,
+                        query: searchQuery,
+                    },
+                });
+                setMovies(response.data.results);
+                setIsLoading(false);
+
+            } catch (error){
+                setIsLoading(false);
+                console.log("Error", error.message);
+            }
+        }
+
+        searchMovies(searchQuery);
     }, [context.searchQuery])
 
   return isLoading ? <Loading /> : (
