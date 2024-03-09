@@ -1,10 +1,6 @@
 'use client'
 
-<<<<<<< HEAD
-import React from 'react'
-=======
 import React, { useState } from 'react'
->>>>>>> jason2000-cpu
 
 import CategoryList from './CategoryList'
 
